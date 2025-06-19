@@ -2,12 +2,12 @@
   lib,
   stdenv,
   makeWrapper,
-  steam,
-  wayland,
-  xorg,
-  libGL,
-  libxkbcommon,
   noita-proxy-unwrapped,
+  # library dependencies
+  xorg,
+  libxkbcommon,
+  libGL,
+  wayland,
   noita-proxy-redistributables,
 }:
 
@@ -22,15 +22,17 @@ stdenv.mkDerivation {
     makeWrapper ${noita-proxy-unwrapped}/bin/noita-proxy $out/bin/noita-proxy \
         --set LD_LIBRARY_PATH "${
           lib.makeLibraryPath [
+
+            libxkbcommon
+            libGL
+
             wayland
 
-            libGL
-            libxkbcommon
+            xorg.libxcb
             xorg.libXcursor
             xorg.libXrandr
             xorg.libXi
             xorg.libX11
-            xorg.libxcb
 
             noita-proxy-redistributables
           ]
@@ -38,6 +40,7 @@ stdenv.mkDerivation {
   '';
 
   meta = noita-proxy-unwrapped.meta // {
-    description = "Noita multiplayer mod for entangled worlds (with Steam wrapper)";
+    description = "Noita multiplayer mod for entangled worlds (wrapper)";
+    licence = noita-proxy-unwrapped.meta.licence + noita-proxy-redistributables.meta.licence;
   };
 }

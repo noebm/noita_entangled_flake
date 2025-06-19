@@ -1,63 +1,63 @@
 {
   lib,
-  fetchFromGitHub,
+  version,
+  src,
   rustPlatform,
-  cargo,
-  rustc,
+
+  # native build dependencies
   python3,
+  pkg-config,
+  cmake,
+
+  # build dependencies
+  openssl,
+  jack2,
+  alsa-lib,
+  libopus,
   xorg,
-  pkgs,
+  libxkbcommon,
+  libGL,
+  wayland,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "noita-proxy-unwrapped";
-  version = "1.5.5";
-
-  src = fetchFromGitHub {
-    owner = "IntQuant";
-    repo = "noita_entangled_worlds";
-    tag = "v${version}";
-    hash = "sha256-9TTgjfCPvM8K5BIN+gaMih7y80TaGbIOk2ThFxpfunk=";
-  };
+  inherit version src;
 
   sourceRoot = "${src.name}/noita-proxy";
   cargoLock.lockFile = "${src}/noita-proxy/Cargo.lock";
 
   useFetchCargoVendor = true;
   nativeBuildInputs = [
-    cargo
-    rustPlatform.cargoSetupHook
-    rustc
     python3
-    xorg.libxcb
-    pkgs.pkg-config
-    pkgs.cmake
+    pkg-config
+    cmake
   ];
   buildInputs = [
-    pkgs.openssl
+    openssl
 
-    pkgs.jack2
-    pkgs.alsa-lib
-    pkgs.libopus
+    jack2
+    alsa-lib
+    libopus
 
-    pkgs.xorg.libxcb
-    pkgs.libxkbcommon
-    pkgs.libGL
+    libxkbcommon
+    libGL
 
-    # WINIT_UNIX_BACKEND=wayland
-    pkgs.wayland
+    wayland
 
-    # WINIT_UNIX_BACKEND=x11
-    pkgs.xorg.libXcursor
-    pkgs.xorg.libXrandr
-    pkgs.xorg.libXi
-    pkgs.xorg.libX11
+    xorg.libxcb
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXi
+    xorg.libX11
   ];
   doCheck = false;
 
   meta = {
     description = "Noita multiplayer mod for entangled worlds";
     homepage = "https://github.com/IntQuant/noita_entangled_worlds";
-    license = lib.licenses.mit; # Update this based on the actual license
-    maintainers = [ ];
+    license = with lib.licenses; [
+      asl20
+      mit
+    ];
   };
 }
