@@ -3,15 +3,15 @@
   stdenv,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "noita-proxy-redistributables";
-  version = "ba7a561";
+  version = "1.5.5";
 
   src = fetchFromGitHub {
     owner = "IntQuant";
     repo = "noita_entangled_worlds";
-    rev = "ba7a561ffd4ccf3e4dce8939de782c6fb5ebcafe";
-    hash = "sha256-rTO0/eWTJDp1j8Non4tB1CnzzycqcLE1qBdUteJdhcA=";
+    tag = "v${version}";
+    hash = "sha256-9TTgjfCPvM8K5BIN+gaMih7y80TaGbIOk2ThFxpfunk=";
   };
 
   installPhase = ''

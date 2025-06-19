@@ -10,18 +10,18 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "noita-proxy-unwrapped";
-  version = "0.30.8";
+  version = "1.5.5";
 
   src = fetchFromGitHub {
     owner = "IntQuant";
     repo = "noita_entangled_worlds";
-    rev = "ba7a561ffd4ccf3e4dce8939de782c6fb5ebcafe";
-    hash = "sha256-rTO0/eWTJDp1j8Non4tB1CnzzycqcLE1qBdUteJdhcA=";
+    tag = "v${version}";
+    hash = "sha256-9TTgjfCPvM8K5BIN+gaMih7y80TaGbIOk2ThFxpfunk=";
   };
 
   sourceRoot = "${src.name}/noita-proxy";
+  cargoLock.lockFile = "${src}/noita-proxy/Cargo.lock";
 
-  cargoHash = "sha256-D+TTIwx0N7yx/AK19r/KFO43u2DsggJe9SJs5DMzVbg=";
   useFetchCargoVendor = true;
   nativeBuildInputs = [
     cargo
@@ -29,8 +29,16 @@ rustPlatform.buildRustPackage rec {
     rustc
     python3
     xorg.libxcb
+    pkgs.pkg-config
+    pkgs.cmake
   ];
   buildInputs = [
+    pkgs.openssl
+
+    pkgs.jack2
+    pkgs.alsa-lib
+    pkgs.libopus
+
     pkgs.xorg.libxcb
     pkgs.libxkbcommon
     pkgs.libGL
