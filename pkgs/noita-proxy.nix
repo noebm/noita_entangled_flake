@@ -32,6 +32,8 @@ stdenv.mkDerivation {
             xorg.libXi
             xorg.libX11
             xorg.libxcb
+
+            noita-proxy-redistributables
           ]
         }"
   '';
