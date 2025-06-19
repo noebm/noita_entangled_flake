@@ -251,6 +251,7 @@
 
       packages.${system} = {
         noita-proxy-unwrapped = pkgs.callPackage ./pkgs/noita-proxy-unwrapped.nix { };
+        noita-proxy = pkgs.callPackage ./pkgs/noita-proxy.nix { };
       };
     };
 
