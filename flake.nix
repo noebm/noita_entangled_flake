@@ -256,7 +256,7 @@
       # }).env;
 
       packages.${system} = rec {
-        inherit (my-packages) noita-proxy-unwrapped noita-proxy;
+        inherit (my-packages) noita-proxy-unwrapped noita-proxy-redistributables noita-proxy;
         default = noita-proxy;
       };
     };

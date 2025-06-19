@@ -46,6 +46,10 @@ rustPlatform.buildRustPackage rec {
   ];
   doCheck = false;
 
+  postInstall = ''
+    cp ${src}/redist/* $out/bin/
+  '';
+
   # buildPhase = ''
   # cargo build -j 16 --profile=dev
   # '';

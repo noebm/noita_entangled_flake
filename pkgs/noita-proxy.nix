@@ -3,7 +3,12 @@
   stdenv,
   makeWrapper,
   steam,
+  wayland,
+  xorg,
+  libGL,
+  libxkbcommon,
   noita-proxy-unwrapped,
+  noita-proxy-redistributables,
 }:
 
 stdenv.mkDerivation {
@@ -14,9 +19,21 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
-    mkdir -p $out/bin
     makeWrapper ${noita-proxy-unwrapped}/bin/noita-proxy $out/bin/noita-proxy \
-      --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ steam ]}"
+        --set LD_LIBRARY_PATH "${
+          lib.makeLibraryPath [
+            steam
+            wayland
+
+            libGL
+            libxkbcommon
+            xorg.libXcursor
+            xorg.libXrandr
+            xorg.libXi
+            xorg.libX11
+            xorg.libxcb
+          ]
+        }"
   '';
 
   meta = noita-proxy-unwrapped.meta // {
