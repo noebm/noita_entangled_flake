@@ -255,8 +255,9 @@
       #     runScript = "zsh";
       # }).env;
 
-      packages.${system} = {
+      packages.${system} = rec {
         inherit (my-packages) noita-proxy-unwrapped noita-proxy;
+        default = noita-proxy;
       };
     };
 
