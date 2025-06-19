@@ -249,7 +249,9 @@
       #     runScript = "zsh";
       # }).env;
 
-      packages.${system}.noita-proxy = pkgs.callPackage ./pkgs/noita-proxy.nix { };
+      packages.${system} = {
+        noita-proxy-unwrapped = pkgs.callPackage ./pkgs/noita-proxy-unwrapped.nix { };
+      };
     };
 
 }

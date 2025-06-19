@@ -9,7 +9,7 @@
   pkgs,
 }:
 rustPlatform.buildRustPackage rec {
-  pname = "noita-proxy";
+  pname = "noita-proxy-unwrapped";
   version = "0.30.8";
 
   src = fetchFromGitHub {
