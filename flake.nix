@@ -15,6 +15,7 @@
     let
       system = flake-utils.lib.system.x86_64-linux;
       pkgs = nixpkgs.legacyPackages.${system};
+      my-packages = import ./pkgs { inherit pkgs; };
       programSrc = pkgs.fetchFromGitHub {
         owner = "IntQuant";
         repo = "noita_entangled_worlds";
@@ -250,8 +251,7 @@
       # }).env;
 
       packages.${system} = {
-        noita-proxy-unwrapped = pkgs.callPackage ./pkgs/noita-proxy-unwrapped.nix { };
-        noita-proxy = pkgs.callPackage ./pkgs/noita-proxy.nix { };
+        inherit (my-packages) noita-proxy-unwrapped noita-proxy;
       };
     };
 
