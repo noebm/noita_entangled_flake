@@ -46,14 +46,6 @@ rustPlatform.buildRustPackage rec {
   ];
   doCheck = false;
 
-  # buildPhase = ''
-  # cargo build -j 16 --profile=dev
-  # '';
-  # cargoLock.lockFile = "${programSrc}/noita-proxy/Cargo.lock";
-  # cargoLock.outputHashes = {
-  #   "steamworks-0.11.0" = "sha256-brAAzwJQpefWJWCveHqBLvrlAi0tUn07V/XkWXCj8PE=";
-  # };
-
   meta = {
     description = "Noita multiplayer mod for entangled worlds";
     homepage = "https://github.com/IntQuant/noita_entangled_worlds";
