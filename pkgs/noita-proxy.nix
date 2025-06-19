@@ -22,7 +22,6 @@ stdenv.mkDerivation {
     makeWrapper ${noita-proxy-unwrapped}/bin/noita-proxy $out/bin/noita-proxy \
         --set LD_LIBRARY_PATH "${
           lib.makeLibraryPath [
-            steam
             wayland
 
             libGL
