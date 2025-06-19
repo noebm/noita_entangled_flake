@@ -14,7 +14,12 @@
     }:
     let
       system = flake-utils.lib.system.x86_64-linux;
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
+      };
       my-packages = import ./pkgs { inherit pkgs; };
       programSrc = pkgs.fetchFromGitHub {
         owner = "IntQuant";
